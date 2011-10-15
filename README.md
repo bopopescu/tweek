@@ -3,7 +3,7 @@ Tweek
 
 Description
 -----------
-Tweet is a research project created to experiment mining Twitter data in a MapReduce framework. More coming soon...
+Tweek is a research project created to experiment mining Twitter data in a MapReduce framework. More coming soon...
 
 Pulling Twitter Data
 --------------------
