@@ -1,3 +1,5 @@
+#!/usr/bin/ruby
+
 # This Reducer consumes input in the format:
 #   1. <doc_id> <word> <count>
 
@@ -21,6 +23,7 @@ def add_to_doc_hash(doc_id, word, count)
   end
 end
 
+# Processing for each line from the mappers.
 ARGF.each do |line|
   split = line.split("\t")
   doc_id = line[0]
@@ -29,9 +32,7 @@ ARGF.each do |line|
   add_to_doc_hash(doc_id, word, count)
 end
 
-#TODO: print out in a formatted index of some kind
-#word_count_hash.each_pair do |doc_id, word_hash|
-#  word_hash.each_pair do |word, count|
-#    puts "#{doc_id}\tW\t#{word}\t#{count}"
-#  end
-#end
+# Prints out the final index.
+$doc_hash.each_pair do |doc_id, word_hash|  
+  # TODO:
+end

@@ -1,3 +1,5 @@
+#!/usr/bin/ruby
+
 # This Mapper is responsible for parsing each raw tweet and outputing
 # tuples of (doc_id, size) and (doc_id, word, count).
 
