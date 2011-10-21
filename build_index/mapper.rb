@@ -4,13 +4,18 @@
 # tuples of (doc_id, size) and (doc_id, word, count).
 
 require 'set'
-#require 'datetime'
 require 'rubygems'
 require 'crack'
 require 'whatlanguage'
 require './stemmable.rb'
 
-STOP_LIST = Set.new(['a', 'an', 'the', 'about'])
+MIN_WORD_SIZE = 3
+STOP_LIST = Set.new(['a', 'about', 'are', 'an', 'as', 'at', 'be', 'but', 
+                     'by', 'for', 'from', 'has', 'have', 'he', 'her', 
+                     'his', 'in', 'is', 'it', 'its', 'more', 'new', 'of', 
+                     'on', 'one', 'said', 'say', 'that', 'the', 'their', 
+                     'they', 'this', 'to', 'was', 'which', 'who', 'will', 
+                     'with', 'you'])
 
 class String
   include Stemmable
@@ -38,20 +43,18 @@ ARGF.each do |line|
 
   unless tweet.empty? || tweet.length == 0
     begin
+
       parsed_tweet = Crack::JSON.parse(tweet)
       text = parsed_tweet['text']
-      doc_id = Date.new(parsed_tweet['created_at']).strftime('%Y%m%d')
-      
-      # TODO: use DateTime.civil instead to get correct time
-      #time = DateTime.civil(parsed_tweet['created_at'], asdfasdf)
-      #time = time.strftime('...')
+      doc_id = Time.parse(parsed_tweet['created_at']).utc.strftime('%Y%m%d-%H')
 
-      if text.language == 'english'
-        words = text.split(' ')
-      
+      if text.language == :english
+        words = text.split(/\W+/)
+
         words.each do |word|
-          word = word.stem
-          unless STOP_LIST.include?(word)
+          word = word.downcase
+          unless STOP_LIST.include?(word) || word.length < MIN_WORD_SIZE
+            word = word.stem
             add_to_word_count(doc_id, word, 1)
           end
         end

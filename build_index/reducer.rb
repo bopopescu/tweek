@@ -11,10 +11,10 @@ $doc_hash = {}
 def add_to_doc_hash(doc_id, word, count)
   if $doc_hash.key?(doc_id)
     $doc_hash[doc_id][:size] += count
-    if $doc_hash.key?(word)
-      $doc_hash[word] += count
+    if $doc_hash[doc_id].key?(word)
+      $doc_hash[doc_id][word] += count
     else
-      $doc_hash[word] = count
+      $doc_hash[doc_id][word] = count
     end
   else
     $doc_hash[doc_id] = {}
@@ -26,13 +26,17 @@ end
 # Processing for each line from the mappers.
 ARGF.each do |line|
   split = line.split("\t")
-  doc_id = line[0]
-  word = line[1]
-  count = line[2].to_i
+  doc_id = split[0]
+  word = split[1]
+  count = split[2].to_i
   add_to_doc_hash(doc_id, word, count)
 end
 
 # Prints out the final index.
-$doc_hash.each_pair do |doc_id, word_hash|  
+# TODO: this may have to be re-done if calling eval() on the entire 
+# string representation of the hash will bottle neck the system from
+# lack of sufficient memory.
+puts $doc_hash
+#$doc_hash.each_pair do |doc_id, word_hash|  
   # TODO:
-end
+#end
