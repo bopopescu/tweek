@@ -1,4 +1,4 @@
-#!/contrib/bin/python2.7
+#!/usr/local/bin/python2.7
 
 # Sanity check. This will cat all items in our SimpleDB setup. We can use this to verify that
 # we actually inserted something.

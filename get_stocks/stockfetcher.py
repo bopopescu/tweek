@@ -1,4 +1,4 @@
-#!/contrib/bin/python2.7
+#!/usr/local/bin/python2.7
 
 # Grabs stock data from Yahoo! Finance API and adds it into our SimpleDB configuration.
 
