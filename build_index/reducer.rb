@@ -3,6 +3,8 @@
 # This Reducer consumes input in the format:
 #   1. <doc_id> <word> <count>
 
+MIN_WORD_COUNT = 2
+
 # The doc_hash that keeps track of word counts and size of the doc.
 $doc_hash = {}
 
@@ -33,10 +35,13 @@ ARGF.each do |line|
 end
 
 # Prints out the final index.
-# TODO: this may have to be re-done if calling eval() on the entire 
-# string representation of the hash will bottle neck the system from
-# lack of sufficient memory.
-puts $doc_hash
-#$doc_hash.each_pair do |doc_id, word_hash|  
-  # TODO:
-#end
+$doc_hash.each_pair do |doc_id, word_hash|  
+  output = "#{doc_id};#{word_hash[:size].to_s};"
+  word_hash.each_pair do |word, count|
+    # TODO: emitting words with a count of 1 affects the size of the document...
+    if word != :size && count >= MIN_WORD_COUNT
+      output << "#{word}:#{count.to_s};"
+    end
+  end
+  puts output
+end
