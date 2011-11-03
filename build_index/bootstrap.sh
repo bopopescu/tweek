@@ -7,7 +7,7 @@ cd rubygems-1.8.10
 sudo ruby setup.rb
 
 sudo gem1.8 install hoe --source http://rubygems.org
-sudo gem1.8 install crack --source http://rubygems.org
+sudo gem1.8 install yajl-ruby --source http://rubygems.org
 sudo gem1.8 install whatlanguage --source http://rubygems.org
 
 exit
