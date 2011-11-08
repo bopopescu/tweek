@@ -217,23 +217,6 @@ class String
   include Stemmable
 end
 
-# A hash of {doc_id => {word => count}} for in-mapper combining.
-$word_count = {}
-
-# Adds count to the value at $word_count[doc_id][word]. This is
-# used for in-mapper combining.
-def add_to_word_count(doc_id, word, count)
-  if $word_count.key?(doc_id)
-    if $word_count[doc_id].key?(word)
-      $word_count[doc_id][word] = $word_count[doc_id][word] + count
-    else
-      $word_count[doc_id][word] = count
-    end
-  else
-    $word_count[doc_id] = {word => count}
-  end
-end
-
 # Process each tweet.
 ARGF.each do |line|
   tweet = line.strip
@@ -252,20 +235,13 @@ ARGF.each do |line|
           word = word.downcase
           unless STOP_LIST.include?(word) || word.length < MIN_WORD_SIZE
             word = word.stem
-            add_to_word_count(doc_id, word, 1)
+            puts "#{doc_id}\t#{word}\t1"
           end
         end
       end
     rescue
       # couldn't parse tweet
     end
-  end
-end
-
-# Output tuples of (doc_id, word, count)
-$word_count.each_pair do |doc_id, word_hash|
-  word_hash.each_pair do |word, count|
-    puts "#{doc_id}\t#{word}\t#{count}"
   end
 end
 
