@@ -1,3 +1,6 @@
+Method 0:
+- first, lets try to compare on a single, local machine and see how long it takes
+
 Method 1:
 
 - input location is output location of build_index
