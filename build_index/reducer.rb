@@ -3,8 +3,6 @@
 # This Reducer consumes input in the format:
 #   1. <doc_id> <word> <count>
 
-MIN_WORD_COUNT = 2
-
 # The doc_hash that keeps track of word counts and size of the doc.
 $doc_hash = {}
 
@@ -38,8 +36,7 @@ end
 $doc_hash.each_pair do |doc_id, word_hash|  
   output = "#{doc_id};#{word_hash[:size].to_s};"
   word_hash.each_pair do |word, count|
-    # TODO: emitting words with a count of 1 affects the size of the document...
-    if word != :size && count >= MIN_WORD_COUNT
+    if word != :size
       output << "#{word}:#{count.to_s};"
     end
   end
