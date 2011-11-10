@@ -66,6 +66,8 @@ if $comparee_hash.size > 1
   end
 end
 
+$max_size = 0
+
 # Collect REFERENCE samples.
 reference_files.each do |s3_file|
   data = s3_file.value
@@ -79,6 +81,9 @@ reference_files.each do |s3_file|
     # add size to hash
     size = line[1].to_i
     $reference_hash[doc_id][:size] = size
+
+    # find max size of all references
+    $max_size = [$max_size, size].max
 
     # drop first two array elements (doc_id, size)
     line.drop(2)
@@ -114,11 +119,11 @@ $reference_hash.each_pair do |doc_id, word_hash|
 
   score = 0
   common_words.each do |word|
-    #tmp_score = (1.0 + comp_word_hash[word]) / comp_word_hash[:size]
-    tmp_score = (1.0 + word_hash[word])
+    tmp_score = (1.0 + comp_word_hash[word]) #/ (comp_word_hash[:size].to_f / $max_size)
+    tmp_score += (1.0 + word_hash[word]) #/ (word_hash[:size].to_f / $max_size)
     score += tmp_score 
   end
-  $scores[doc_id] = score / word_hash[:size]
+  $scores[doc_id] = score / ((word_hash[:size] + comp_word_hash[:size]).to_f / $max_size)
 
 end
 
