@@ -1,0 +1,80 @@
+TEST #1
+
+input: s3n://twtr-index-output/1025-1109
+output: s3n://twtr-compare/20111209-12
+mapper: s3n://twtr-scripts/compare/mapper.rb
+reducer: s3n://twtr-scripts/compare/reducer.rb
+bootstrap: s3n://twtr-scripts/compare/bootstrap.sh
+EXTRA ARGS: -jobconf mapred.reduce.tasks=1
+
+TEST #2
+
+input:
+s3n://twtr-index-output/1025-1109/*
+output:
+s3n://twtr-compare/20111209-12/
+mapper:
+s3n://twtr-scripts/compare/mapper.rb
+reducer:
+s3n://twtr-scripts/compare/reducer.rb
+bootstrap:
+s3n://twtr-scripts/compare/bootstrap.sh
+EXTRA ARGS: 
+-jobconf mapred.reduce.tasks=1 -cmdenv COMPARE_DOC=20111209-12
+
+TEST #3
+
+input:
+s3n://twtr-index-output/1025-1109/*
+output:
+s3n://twtr-compare/20111101-07/
+mapper:
+s3n://twtr-scripts/compare/mapper.rb
+reducer:
+s3n://twtr-scripts/compare/reducer.rb
+bootstrap:
+s3n://twtr-scripts/compare/bootstrap.sh
+EXTRA ARGS: 
+-jobconf mapred.reduce.tasks=1 -cmdenv COMPARE_DOC=20111101-07
+
+TEST #4 - FULL DATA
+
+input:
+s3n://twtr-index-output/1010-1209/*
+output:
+s3n://twtr-compare/20111209-13/
+mapper:
+s3n://twtr-scripts/compare/mapper.rb
+reducer:
+s3n://twtr-scripts/compare/reducer.rb
+bootstrap:
+s3n://twtr-scripts/compare/bootstrap.sh
+EXTRA ARGS: 
+-jobconf mapred.reduce.tasks=1 -cmdenv COMPARE_DOC=20111209-13
+
+20111208 COMPARE
+
+input:
+s3n://twtr-index-output/1010-1209/*
+output:
+s3n://twtr-compare/20111208-1
+mapper:
+s3n://twtr-scripts/compare/mapper.rb
+reducer:
+s3n://twtr-scripts/compare/reducer.rb
+bootstrap:
+s3n://twtr-scripts/compare/bootstrap.sh
+EXTRA ARGS: 
+-jobconf mapred.reduce.tasks=1 -cmdenv COMPARE_DOC=20111208-1
+
+# INDEX STEP
+
+# COMPARE STEP
+elastic-mapreduce --create \
+      --stream --input s3n://twtr-index-output/1010-1209/* \
+      --output s3n://twtr-compare/20111209-13/ \
+      --mapper s3n://twtr-scripts/compare/mapper.rb \
+      --reducer s3n://twtr-scripts/compare/reducer.rb \
+      --jobconf mapred.reduce.tasks=1 -cmdend COMPARE_DOC=20111209-13 \
+      --bootstrap-action s3n://twtr-scripts/compare/bootstrap.sh 
+

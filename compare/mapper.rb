@@ -10,8 +10,8 @@ CONSTANT = 1
 
 COMPARE_DOC = ENV['COMPARE_DOC']
 BUCKET = 'twtr-index-output'
-ACCESS_KEY = ENV['ACCESS_KEY']
-SECRET_KEY = ENV['SECRET_KEY']
+ACCESS_KEY = ''
+SECRET_KEY = ''
 
 AWS::S3::Base.establish_connection!(
   :access_key_id     => ACCESS_KEY,
@@ -84,8 +84,8 @@ ARGF.each do |line|
   
   temp_score = 0
   common_words.each do |word|
-    temp_score += $compare_words[word]
-    temp_score += reference_words[word]
+    temp_score += (1 + $compare_words[word])
+    temp_score += (1 + reference_words[word])
   end
 
   # Output the tuple to be sent to the reducer.

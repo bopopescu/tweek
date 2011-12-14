@@ -24,8 +24,8 @@ $doc_hash.each_pair do |doc_id, info|
   $scores[doc_id] = score
 end
 
-$scores = $scores.to_a.sort_by! { |score| score[1] }
-$scores.reverse_each do |score|
+$scores = $scores.to_a.sort! { |x, y| y[1] <=> x[1] }
+$scores.each do |score|
   puts "#{score[0]}\t#{score[1]}\t#{$doc_hash[score[0]][1]}"
 end
 

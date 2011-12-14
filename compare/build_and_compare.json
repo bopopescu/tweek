@@ -1,0 +1,30 @@
+[ 
+  { 
+    "Name": "build-FILE", 
+    "ActionOnFailure": "TERMINATE_JOB_FLOW", 
+    "HadoopJarStep": { 
+      "Jar": "/home/hadoop/contrib/streaming/hadoop-streaming.jar", 
+      "Args": [ 
+         "-input",    "s3n://twtr-raw/FOLDER/FILE.twtr", 
+         "-output",   "s3n://twtr-index-output/FILE/",
+         "-mapper",   "s3n://twtr-scripts/build_index/mapper.rb",
+         "-reducer",  "s3n://twtr-scripts/build_index/reducer.rb"
+      ]
+    }
+  },
+  { 
+    "Name": "comp-FILE", 
+    "ActionOnFailure": "TERMINATE_JOB_FLOW", 
+    "HadoopJarStep": { 
+      "Jar": "/home/hadoop/contrib/streaming/hadoop-streaming.jar", 
+      "Args": [ 
+         "-input",    "s3n://twtr-index-output/1010-1209/*", 
+         "-output",   "s3n://twtr-compare/FILE/", 
+         "-mapper",   "s3n://twtr-scripts/compare/mapper.rb",
+         "-reducer",  "s3n://twtr-scripts/compare/reducer.rb",
+         "-jobconf",  "mapred.reduce.tasks=1",
+         "-cmdenv",   "COMPARE_DOC=FILE"
+      ] 
+    },
+  }
+]

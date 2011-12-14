@@ -11,8 +11,8 @@ COMPAREE = ARGV[0]
 REFERENCE = ARGV[1]
 
 BUCKET = 'twtr-index-output'
-ACCESS_KEY = 'access-key'
-SECRET_KEY = 'secret-key'
+ACCESS_KEY = ''
+SECRET_KEY = ''
 
 # establish base connection
 AWS::S3::Base.establish_connection!(
@@ -67,6 +67,7 @@ if $comparee_hash.size > 1
 end
 
 $max_size = 0
+$word_freq = {}
 
 # Collect REFERENCE samples.
 reference_files.each do |s3_file|
@@ -95,6 +96,11 @@ reference_files.each do |s3_file|
       if !word.empty?
         count = word_count[1].to_i
         $reference_hash[doc_id][word] = count
+        if $word_freq.key?(word)
+          $word_freq[word] = $word_freq[word] + 1
+        else
+          $word_freq[word] = 1
+        end
       end
     end
   end
@@ -116,12 +122,16 @@ $reference_hash.each_pair do |doc_id, word_hash|
 
   comp_word_hash = $comparee_hash[$comparee_key]
   common_words = word_hash.keys & comp_word_hash.keys
+  common_words.delete(:size)
 
   score = 0
   common_words.each do |word|
     tmp_score = (1.0 + comp_word_hash[word]) #/ (comp_word_hash[:size].to_f / $max_size)
     tmp_score += (1.0 + word_hash[word]) #/ (word_hash[:size].to_f / $max_size)
-    score += tmp_score 
+    # divide by how many samples the word appears in
+    # more rare words will result in a higher score
+    score += tmp_score / $word_freq[word] # divide by how many samples the word appears in
+
   end
   $scores[doc_id] = score / ((word_hash[:size] + comp_word_hash[:size]).to_f / $max_size)
 
