@@ -122,9 +122,17 @@ The step which finds the most similar samples for a given sample took on average
 
 We examined the experimental scalability of the step in the process in which the most similar historic samples to a given sample are found. We focused on the scalability of this step because in practice this step would be executed more frequently than the step which builds the full index, and because generating predictions once similar samples are found occurs on the order of tens of seconds on a single machine, which is fast enough to be considered relatively instantaneous. The results showed very poor scalability with a speedup of 1.44 with 8 virtual machines, 1.53 with 12 virtual machines, and only 1.63 with 16 virtual machines. This speedup is far less than ideal because of the bottleneck from using only one reducer.
 
+\begin{figure*}
+\centering
+\includegraphics[width=0.9\textwidth]{histogram}
+\caption{Histogram of the difference between our computed prediction and the actual percentage change over all aggregate stock symbols. The three different data sets correspond to using the top 5, 10, and 15 most similar samples to generate the prediction, respectively.}
+\label{histogram}
+\end{figure*}
+
 Given the runtime required to find similar Twitter samples, and the application’s poor scalability, this system is not feasible to use in a real-world scenario where a trader’s decisions would be based off of the system’s predictions. As the size of the historical data grows, the number of samples to score a specific sample with would grow, and the runtime of finding similar samples would increase. It is not hard to imagine this system taking longer than one hour to generate a prediction based upon one or two year’s worth of historic data, meaning that the prediction is worthless as the hour being predicted has already come and gone.
 
 Our predictions were somewhat accurate overall. It is apparent to us that there is some sort of statistical correlation between similar tweets and stock changes; however, we lack the data to sufficiently prove this relationship and demonstrably use it to our advantage. We found that the majority of our predictions were very close to the actual stock changes. In fact, most of the time our result matched the sign of the actual change. However, due to our weak data, we are unable to generate a more meaningful result. 
+
 
 \section{Future Work}
 Ideally we would have evaluated the accuracy of our predictions using a longer history than 3 months. This was not possible over the course of the semester, but it would be interesting to see how our prediction accuracy changes with a bigger history to formulate predictions on. As the size of the increases, the run time of making the prediction also increases. If too long of a history is used, making a prediction using our current implementation might be impossible to do in a timely manner. Older Twitter samples could be grouped together by similarity along with the corresponding stock data in a preprocessing step. This would reduce the number of sample pairs scored when generating a prediction, thereby reducing the run time required to make a prediction.
