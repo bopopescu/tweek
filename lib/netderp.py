@@ -2,10 +2,8 @@ import csv
 import boto
 from boto.s3.connection import S3Connection
 from boto.s3.key import Key
+from derpkeys import *
 
-# Ultra-important secret keys
-ACCESS_KEY = ""
-SECRET_KEY = ""
 s3_comparison_bucket = "twtr-compare"
 sdb_stock_domain = "stock-data"
 
