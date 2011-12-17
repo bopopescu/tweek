@@ -1,0 +1,23 @@
+\begin{thebibliography}{1}
+
+\bibitem{bollen}
+Bollen et~al.
+\newblock Twitter mood predicts the stock market.
+\newblock {\em Journal of Computational Science}, Oct. 2010.
+
+\bibitem{twitterget}
+Twitter Developers~API Documentation.
+\newblock Get statuses/user\_timeline, Nov. 2011.
+\newblock \url{https://dev.twitter.com/docs/api/1/get/statuses/user\_timeline}.
+
+\bibitem{whatlanguage}
+Peter Cooper.
+\newblock Whatlanguage, Aug. 2008.
+\newblock \url{https://rubygems.org/gems/whatlanguage}.
+
+\bibitem{porterstem}
+Martin Porter.
+\newblock Porter stemming algorithm, Jan. 2006.
+\newblock \url{http://tartarus.org/martin/PorterStemmer/}.
+
+\end{thebibliography}

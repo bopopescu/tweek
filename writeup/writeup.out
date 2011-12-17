@@ -1,0 +1,11 @@
+\BOOKMARK [1][-]{section.1}{Introduction/Motivation}{}
+\BOOKMARK [1][-]{section.2}{Prediction Algorithm}{}
+\BOOKMARK [1][-]{section.3}{Data Collection}{}
+\BOOKMARK [1][-]{section.4}{Implementation}{}
+\BOOKMARK [2][-]{subsection.4.1}{Building the Index}{section.4}
+\BOOKMARK [2][-]{subsection.4.2}{Finding Similar Samples}{section.4}
+\BOOKMARK [2][-]{subsection.4.3}{Generating a Prediction}{section.4}
+\BOOKMARK [1][-]{section.5}{Evaluation}{}
+\BOOKMARK [1][-]{section.6}{Future Work}{}
+\BOOKMARK [1][-]{section.7}{Related Work}{}
+\BOOKMARK [1][-]{section.8}{Conclusion}{}
