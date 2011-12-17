@@ -8,10 +8,18 @@ import csv
 import datetime
 import subprocess
 
+ACCESS_KEY = ""
+SECRET_KEY = ""
+
 if __name__ == "__main__":
-    sdb = boto.connect_sdb("access-key", "secret-key")
+    sdb = boto.connect_sdb(ACCESS_KEY, SECRET_KEY)
     domain = sdb.get_domain("stock-data")
 
     for item in domain:
         print item.name
-        # print item
+        item["value"] = 0;
+        item.save();
+
+#    i = domain.get_item("INDU-20111027-01")
+#    for x in i:
+#        print x + ": " + i[x]

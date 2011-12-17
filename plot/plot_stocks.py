@@ -18,10 +18,10 @@ if __name__ == "__main__":
 
     data = {}
     tickers = set()
-    
+
     for item in domain:
         [ticker, date, hour] = item.name.split("-")
-        
+
         if ticker not in tickers:
             tickers.add(ticker)
             data[ticker] = {}
@@ -37,7 +37,7 @@ if __name__ == "__main__":
             x = item[u'Last Trade (Real-time) With Time']
             data[ticker]["%s-%s" % (date, hour)] = x.split('<')[1][2:]
 
-    
+
     plottable = {}
     for ticker in data:
         dates = sorted(data[ticker])
@@ -50,7 +50,7 @@ if __name__ == "__main__":
         print x
         print plottable[x]
         print '-'*80
-    
+
     CairoPlot.dot_line_plot("stocks.png",
                             plottable,
                             800,
