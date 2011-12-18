@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.7.20)  17 DEC 2011 19:08
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.7.20)  17 DEC 2011 19:31
 entering extended mode
  %&-line parsing enabled.
 **writeup.tex
@@ -322,12 +322,6 @@ Missing character: There is no € in font cmr10!
 Missing character: There is no  in font cmr10!
 Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
-Missing character: There is no œ in font cmr10!
-Missing character: There is no â in font cmr10!
-Missing character: There is no € in font cmr10!
-Missing character: There is no  in font cmr10!
-Missing character: There is no â in font cmr10!
-Missing character: There is no € in font cmr10!
 Missing character: There is no ™ in font cmr10!
 Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
@@ -498,7 +492,7 @@ s/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texmf-texlive/fonts/type1/publ
 ic/amsfonts/cm/cmti10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts
 /cm/cmtt10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmtt8.p
 fb>
-Output written on writeup.pdf (7 pages, 296098 bytes).
+Output written on writeup.pdf (7 pages, 295760 bytes).
 PDF statistics:
  203 PDF objects out of 1000 (max. 8388607)
  29 named destinations out of 1000 (max. 500000)
