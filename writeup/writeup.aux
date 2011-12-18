@@ -15,26 +15,26 @@
 \citation{bollen}
 \citation{bollen}
 \@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}}
-\@writefile{toc}{\contentsline {section}{\numberline {2}Prediction Algorithm}{1}{section.2}}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Prediction Algorithm}{2}{section.2}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Data Collection}{2}{section.3}}
 \citation{twitterget}
 \citation{whatlanguage}
-\@writefile{toc}{\contentsline {section}{\numberline {3}Data Collection}{2}{section.3}}
-\@writefile{toc}{\contentsline {section}{\numberline {4}Implementation}{2}{section.4}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Building the Index}{2}{subsection.4.1}}
 \citation{porterstem}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Finding Similar Samples}{3}{subsection.4.2}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Generating a Prediction}{3}{subsection.4.3}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Predictions generated between 9:00 am, Nov. 28, 2011 and 2:00 pm, Dec. 9, 2011 during market hours using both the top 5 and top 10 most similar Twitter samples.\relax }}{4}{figure.caption.2}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Implementation}{3}{section.4}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Building the Index}{3}{subsection.4.1}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Finding Similar Samples}{4}{subsection.4.2}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Generating a Prediction}{4}{subsection.4.3}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Predictions generated between 9:00 am, Nov. 28, 2011 and 2:00 pm, Dec. 9, 2011 during market hours using both the top 5 and top 10 most similar Twitter samples.\relax }}{5}{figure.caption.2}}
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
-\newlabel{predictions}{{1}{4}{Predictions generated between 9:00 am, Nov. 28, 2011 and 2:00 pm, Dec. 9, 2011 during market hours using both the top 5 and top 10 most similar Twitter samples.\relax \relax }{figure.caption.2}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Runtime in minutes of each step in the process of generating a prediction. Building the full index was executed on a cluster of 19 virtual machines, and finding similar samples was performed on a cluster of 4.\relax }}{5}{figure.caption.3}}
-\newlabel{runtime}{{2}{5}{Runtime in minutes of each step in the process of generating a prediction. Building the full index was executed on a cluster of 19 virtual machines, and finding similar samples was performed on a cluster of 4.\relax \relax }{figure.caption.3}{}}
+\newlabel{predictions}{{1}{5}{Predictions generated between 9:00 am, Nov. 28, 2011 and 2:00 pm, Dec. 9, 2011 during market hours using both the top 5 and top 10 most similar Twitter samples.\relax \relax }{figure.caption.2}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {5}Evaluation}{5}{section.5}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Scalability of finding similar samples for a given hour sample. It scales rather poorly because the application uses a single reducer which is a major bottleneck.\relax }}{5}{figure.caption.4}}
-\newlabel{speedup}{{3}{5}{Scalability of finding similar samples for a given hour sample. It scales rather poorly because the application uses a single reducer which is a major bottleneck.\relax \relax }{figure.caption.4}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Histogram of the difference between our computed prediction and the actual percentage change over all aggregate stock symbols. The three different data sets correspond to using the top 5, 10, and 15 most similar samples to generate the prediction, respectively.\relax }}{6}{figure.caption.5}}
-\newlabel{histogram}{{4}{6}{Histogram of the difference between our computed prediction and the actual percentage change over all aggregate stock symbols. The three different data sets correspond to using the top 5, 10, and 15 most similar samples to generate the prediction, respectively.\relax \relax }{figure.caption.5}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {6}Future Work}{6}{section.6}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Runtime in minutes of each step in the process of generating a prediction. Building the full index was executed on a cluster of 19 virtual machines, and finding similar samples was performed on a cluster of 4.\relax }}{6}{figure.caption.3}}
+\newlabel{runtime}{{2}{6}{Runtime in minutes of each step in the process of generating a prediction. Building the full index was executed on a cluster of 19 virtual machines, and finding similar samples was performed on a cluster of 4.\relax \relax }{figure.caption.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Scalability of finding similar samples for a given hour sample. It scales rather poorly because the application uses a single reducer which is a major bottleneck.\relax }}{6}{figure.caption.4}}
+\newlabel{speedup}{{3}{6}{Scalability of finding similar samples for a given hour sample. It scales rather poorly because the application uses a single reducer which is a major bottleneck.\relax \relax }{figure.caption.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Histogram of the difference between our computed prediction and the actual percentage change over all aggregate stock symbols during a period of two weeks. The three different data sets correspond to using the top 5, 10, and 15 most similar samples to generate the prediction, respectively.\relax }}{7}{figure.caption.5}}
+\newlabel{histogram}{{4}{7}{Histogram of the difference between our computed prediction and the actual percentage change over all aggregate stock symbols during a period of two weeks. The three different data sets correspond to using the top 5, 10, and 15 most similar samples to generate the prediction, respectively.\relax \relax }{figure.caption.5}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Future Work}{7}{section.6}}
 \citation{bollen}
 \bibstyle{unsrt}
 \bibdata{writeup}
@@ -42,5 +42,4 @@
 \bibcite{twitterget}{2}
 \bibcite{whatlanguage}{3}
 \bibcite{porterstem}{4}
-\@writefile{toc}{\contentsline {section}{\numberline {7}Related Work}{7}{section.7}}
-\@writefile{toc}{\contentsline {section}{\numberline {8}Conclusion}{7}{section.8}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Conclusion}{8}{section.7}}
