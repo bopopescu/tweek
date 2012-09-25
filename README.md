@@ -1,9 +1,11 @@
 Tweek
 ====
 
+NOTE: Please see _____________ for the most up-to-date and detailed description of this project.
+
 Description
 -----------
-Tweek is a research project created to experiment mining Twitter data in a MapReduce framework. This is being built as a senior capstone project at Brown University in the Computer Science course "Data-Intensive Scalable Computing."
+Tweek is a research project created to experiment mining Twitter data to predict stock market changes using a MapReduce framework. This is being built as a senior capstone project at Brown University in the Computer Science course "Data-Intensive Scalable Computing."
 
 Pulling Twitter Data
 --------------------
@@ -20,3 +22,7 @@ The hourly raw Twitter data is uploaded to Amazon's S3 service every hour, five 
 
 [curl_catcher]: https://github.com/mgartner/tweek/blob/master/curl_catcher.sh
 [s3_uploader]: https://github.com/mgartner/tweek/blob/master/s3_uploader.rb
+
+Amazon Elastic Reduce
+---------------------
+There are two separate MapReduce flows that are run in succession to product a list of time periods in which Twitter users were tweeting. The scripts for each can be found in the `build_index` and `compare` directories.
