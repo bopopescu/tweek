@@ -3,7 +3,7 @@ Tweek
 
 Description
 -----------
-Tweek is a research project created to experiment mining Twitter data in a MapReduce framework. More coming soon...
+Tweek is a research project created to experiment mining Twitter data in a MapReduce framework. This is being built as a senior capstone project at Brown University in the Computer Science course "Data-Intensive Scalable Computing."
 
 Pulling Twitter Data
 --------------------
