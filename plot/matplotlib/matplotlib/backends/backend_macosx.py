@@ -58,15 +58,15 @@ class RendererMac(RendererBase):
         linewidth = gc.get_linewidth()
         gc.draw_markers(marker_path, marker_trans, path, trans, linewidth, rgbFace)
 
-    def draw_path_collection(self, gc, master_transform, paths, all_transforms,
+    def draw_path_collection(self, gc, main_transform, paths, all_transforms,
                              offsets, offsetTrans, facecolors, edgecolors,
                              linewidths, linestyles, antialiaseds, urls):
         cliprect = gc.get_clip_rectangle()
         clippath, clippath_transform = gc.get_clip_path()
         if all_transforms:
-            transforms = [numpy.dot(master_transform, t) for t in all_transforms]
+            transforms = [numpy.dot(main_transform, t) for t in all_transforms]
         else:
-            transforms = [master_transform]
+            transforms = [main_transform]
         gc.draw_path_collection(cliprect,
                                 clippath,
                                 clippath_transform,
@@ -80,12 +80,12 @@ class RendererMac(RendererBase):
                                 linestyles,
                                 antialiaseds)
 
-    def draw_quad_mesh(self, gc, master_transform, meshWidth, meshHeight,
+    def draw_quad_mesh(self, gc, main_transform, meshWidth, meshHeight,
                        coordinates, offsets, offsetTrans, facecolors,
                        antialiased, showedges):
         cliprect = gc.get_clip_rectangle()
         clippath, clippath_transform = gc.get_clip_path()
-        gc.draw_quad_mesh(master_transform,
+        gc.draw_quad_mesh(main_transform,
                           cliprect,
                           clippath,
                           clippath_transform,

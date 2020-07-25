@@ -185,7 +185,7 @@ class RendererBase:
                                marker_trans + transforms.Affine2D().translate(x, y),
                                rgbFace)
 
-    def draw_path_collection(self, gc, master_transform, paths, all_transforms,
+    def draw_path_collection(self, gc, main_transform, paths, all_transforms,
                              offsets, offsetTrans, facecolors, edgecolors,
                              linewidths, linestyles, antialiaseds, urls):
         """
@@ -210,7 +210,7 @@ class RendererBase:
         """
         path_ids = []
         for path, transform in self._iter_collection_raw_paths(
-            master_transform, paths, all_transforms):
+            main_transform, paths, all_transforms):
             path_ids.append((path, transform))
 
         for xo, yo, path_id, gc0, rgbFace in self._iter_collection(
@@ -220,7 +220,7 @@ class RendererBase:
             transform = transforms.Affine2D(transform.get_matrix()).translate(xo, yo)
             self.draw_path(gc0, path, transform, rgbFace)
 
-    def draw_quad_mesh(self, gc, master_transform, meshWidth, meshHeight,
+    def draw_quad_mesh(self, gc, main_transform, meshWidth, meshHeight,
                        coordinates, offsets, offsetTrans, facecolors,
                        antialiased, showedges):
         """
@@ -240,7 +240,7 @@ class RendererBase:
             linewidths = np.array([gc.get_linewidth()], np.float_)
 
         return self.draw_path_collection(
-            gc, master_transform, paths, [], offsets, offsetTrans, facecolors,
+            gc, main_transform, paths, [], offsets, offsetTrans, facecolors,
             edgecolors, linewidths, [], [antialiased], [None])
 
     def draw_gouraud_triangle(self, gc, points, colors, transform):
@@ -272,7 +272,7 @@ class RendererBase:
         for tri, col in zip(triangles_array, colors_array):
             self.draw_gouraud_triangle(gc, tri, col, transform)
 
-    def _iter_collection_raw_paths(self, master_transform, paths,
+    def _iter_collection_raw_paths(self, main_transform, paths,
                                    all_transforms):
         """
         This is a helper method (along with :meth:`_iter_collection`) to make
@@ -280,7 +280,7 @@ class RendererBase:
         implementation in a backend.
 
         This method yields all of the base path/transform
-        combinations, given a master transform, a list of paths and
+        combinations, given a main transform, a list of paths and
         list of transforms.
 
         The arguments should be exactly what is passed in to
@@ -301,7 +301,7 @@ class RendererBase:
             path = paths[i % Npaths]
             if Ntransforms:
                 transform = all_transforms[i % Ntransforms]
-            yield path, transform + master_transform
+            yield path, transform + main_transform
 
     def _iter_collection(self, gc, path_ids, offsets, offsetTrans, facecolors,
                          edgecolors, linewidths, linestyles, antialiaseds,

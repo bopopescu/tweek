@@ -48,7 +48,7 @@ for i in range(Nr):
 
         ax.append(a)
 
-# Set the first image as the master, with all the others
+# Set the first image as the main, with all the others
 # observing it for changes in cmap or norm.
 
 class ImageFollower:
@@ -65,7 +65,7 @@ for i, im in enumerate(images):
     if i > 0:
         images[0].callbacksSM.connect('changed', ImageFollower(im))
 
-# The colorbar is also based on this master image.
+# The colorbar is also based on this main image.
 fig.colorbar(images[0], cax, orientation='horizontal')
 
 # We need the following only if we want to run this interactively and

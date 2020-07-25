@@ -23,7 +23,7 @@ a.plot(t,s)
 
 
 # a tk.DrawingArea
-canvas = FigureCanvasTkAgg(f, master=root)
+canvas = FigureCanvasTkAgg(f, main=root)
 canvas.show()
 canvas.get_tk_widget().pack(side=Tk.TOP, fill=Tk.BOTH, expand=1)
 
@@ -36,7 +36,7 @@ def _quit():
     root.destroy()  # this is necessary on Windows to prevent
                     # Fatal Python Error: PyEval_RestoreThread: NULL tstate
 
-button = Tk.Button(master=root, text='Quit', command=_quit)
+button = Tk.Button(main=root, text='Quit', command=_quit)
 button.pack(side=Tk.BOTTOM)
 
 Tk.mainloop()

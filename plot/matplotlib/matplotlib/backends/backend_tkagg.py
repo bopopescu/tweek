@@ -78,7 +78,7 @@ def new_figure_manager(num, *args, **kwargs):
     FigureClass = kwargs.pop('FigureClass', Figure)
     figure = FigureClass(*args, **kwargs)
     window = Tk.Tk()
-    canvas = FigureCanvasTkAgg(figure, master=window)
+    canvas = FigureCanvasTkAgg(figure, main=window)
     figManager = FigureManagerTkAgg(canvas, num, window)
     if matplotlib.is_interactive():
         figManager.show()
@@ -175,16 +175,16 @@ class FigureCanvasTkAgg(FigureCanvasAgg):
                65421 : 'enter',
                }
 
-    def __init__(self, figure, master=None, resize_callback=None):
+    def __init__(self, figure, main=None, resize_callback=None):
         FigureCanvasAgg.__init__(self, figure)
         self._idle = True
         self._idle_callback = None
         t1,t2,w,h = self.figure.bbox.bounds
         w, h = int(w), int(h)
         self._tkcanvas = Tk.Canvas(
-            master=master, width=w, height=h, borderwidth=4)
+            main=main, width=w, height=h, borderwidth=4)
         self._tkphoto = Tk.PhotoImage(
-            master=self._tkcanvas, width=w, height=h)
+            main=self._tkcanvas, width=w, height=h)
         self._tkcanvas.create_image(w/2, h/2, image=self._tkphoto)
         self._resize_callback = resize_callback
         self._tkcanvas.bind("<Configure>", self.resize)
@@ -213,7 +213,7 @@ class FigureCanvasTkAgg(FigureCanvasAgg):
                 self.close_event()
         root.bind("<Destroy>", filter_destroy)
 
-        self._master = master
+        self._main = main
         self._tkcanvas.focus_set()
 
     def resize(self, event):
@@ -230,7 +230,7 @@ class FigureCanvasTkAgg(FigureCanvasAgg):
 
         self._tkcanvas.delete(self._tkphoto)
         self._tkphoto = Tk.PhotoImage(
-            master=self._tkcanvas, width=int(width), height=int(height))
+            main=self._tkcanvas, width=int(width), height=int(height))
         self._tkcanvas.create_image(int(width/2),int(height/2),image=self._tkphoto)
         self.resize_event()
         self.show()
@@ -238,11 +238,11 @@ class FigureCanvasTkAgg(FigureCanvasAgg):
     def draw(self):
         FigureCanvasAgg.draw(self)
         tkagg.blit(self._tkphoto, self.renderer._renderer, colormode=2)
-        self._master.update_idletasks()
+        self._main.update_idletasks()
 
     def blit(self, bbox=None):
         tkagg.blit(self._tkphoto, self.renderer._renderer, bbox=bbox, colormode=2)
-        self._master.update_idletasks()
+        self._main.update_idletasks()
 
     show = draw
 
@@ -357,7 +357,7 @@ class FigureCanvasTkAgg(FigureCanvasAgg):
         return TimerTk(self._tkcanvas, *args, **kwargs)
 
     def flush_events(self):
-        self._master.update()
+        self._main.update()
 
     def start_event_loop(self,timeout):
         FigureCanvasBase.start_event_loop_default(self,timeout)
@@ -421,7 +421,7 @@ class FigureManagerTkAgg(FigureManagerBase):
         if height is None:
             width = width.width
         else:
-            self.canvas._tkcanvas.master.geometry("%dx%d" % (width, height))
+            self.canvas._tkcanvas.main.geometry("%dx%d" % (width, height))
 
         self.toolbar.configure(width=width)
 
@@ -460,13 +460,13 @@ class FigureManagerTkAgg(FigureManagerBase):
         self.window.wm_title(title)
 
 class AxisMenu:
-    def __init__(self, master, naxes):
-        self._master = master
+    def __init__(self, main, naxes):
+        self._main = main
         self._naxes = naxes
-        self._mbar = Tk.Frame(master=master, relief=Tk.RAISED, borderwidth=2)
+        self._mbar = Tk.Frame(main=main, relief=Tk.RAISED, borderwidth=2)
         self._mbar.pack(side=Tk.LEFT)
         self._mbutton = Tk.Menubutton(
-            master=self._mbar, text="Axes", underline=0)
+            main=self._mbar, text="Axes", underline=0)
         self._mbutton.pack(side=Tk.LEFT, padx="2m")
         self._mbutton.menu = Tk.Menu(self._mbutton)
         self._mbutton.menu.add_command(
@@ -509,7 +509,7 @@ class AxisMenu:
         return a
 
     def set_active(self):
-        self._master.set_active(self.get_indices())
+        self._main.set_active(self.get_indices())
 
     def invert_all(self):
         for a in self._axis_var:
@@ -531,9 +531,9 @@ class NavigationToolbar(Tk.Frame):
     """
     def _Button(self, text, file, command):
         file = os.path.join(rcParams['datapath'], 'images', file)
-        im = Tk.PhotoImage(master=self, file=file)
+        im = Tk.PhotoImage(main=self, file=file)
         b = Tk.Button(
-            master=self, text=text, padx=2, pady=2, image=im, command=command)
+            main=self, text=text, padx=2, pady=2, image=im, command=command)
         b._ntimage = im
         b.pack(side=Tk.LEFT)
         return b
@@ -544,7 +544,7 @@ class NavigationToolbar(Tk.Frame):
 
         xmin, xmax = canvas.figure.bbox.intervalx
         height, width = 50, xmax-xmin
-        Tk.Frame.__init__(self, master=self.window,
+        Tk.Frame.__init__(self, main=self.window,
                           width=int(width), height=int(height),
                           borderwidth=2)
 
@@ -616,7 +616,7 @@ class NavigationToolbar(Tk.Frame):
         self.canvas.draw()
 
     def save_figure(self, *args):
-        fs = FileDialog.SaveFileDialog(master=self.window,
+        fs = FileDialog.SaveFileDialog(main=self.window,
                                        title='Save the figure')
         try:
             self.lastDir
@@ -642,7 +642,7 @@ class NavigationToolbar(Tk.Frame):
         naxes = len(self._axes)
         if not hasattr(self, "omenu"):
             self.set_active(range(naxes))
-            self.omenu = AxisMenu(master=self, naxes=naxes)
+            self.omenu = AxisMenu(main=self, naxes=naxes)
         else:
             self.omenu.adjust(naxes)
 
@@ -657,7 +657,7 @@ class NavigationToolbar2TkAgg(NavigationToolbar2, Tk.Frame):
         self.canvas = canvas
         self.window = window
         self._idle = True
-        #Tk.Frame.__init__(self, master=self.canvas._tkcanvas)
+        #Tk.Frame.__init__(self, main=self.canvas._tkcanvas)
         NavigationToolbar2.__init__(self, canvas)
 
     def destroy(self, *args):
@@ -690,9 +690,9 @@ class NavigationToolbar2TkAgg(NavigationToolbar2, Tk.Frame):
 
     def _Button(self, text, file, command):
         file = os.path.join(rcParams['datapath'], 'images', file)
-        im = Tk.PhotoImage(master=self, file=file)
+        im = Tk.PhotoImage(main=self, file=file)
         b = Tk.Button(
-            master=self, text=text, padx=2, pady=2, image=im, command=command)
+            main=self, text=text, padx=2, pady=2, image=im, command=command)
         b._ntimage = im
         b.pack(side=Tk.LEFT)
         return b
@@ -700,7 +700,7 @@ class NavigationToolbar2TkAgg(NavigationToolbar2, Tk.Frame):
     def _init_toolbar(self):
         xmin, xmax = self.canvas.figure.bbox.intervalx
         height, width = 50, xmax-xmin
-        Tk.Frame.__init__(self, master=self.window,
+        Tk.Frame.__init__(self, main=self.window,
                           width=int(width), height=int(height),
                           borderwidth=2)
 
@@ -727,8 +727,8 @@ class NavigationToolbar2TkAgg(NavigationToolbar2, Tk.Frame):
 
         self.bsave = self._Button( text="Save", file="filesave.ppm",
                                    command = self.save_figure)
-        self.message = Tk.StringVar(master=self)
-        self._message_label = Tk.Label(master=self, textvariable=self.message)
+        self.message = Tk.StringVar(main=self)
+        self._message_label = Tk.Label(main=self, textvariable=self.message)
         self._message_label.pack(side=Tk.RIGHT)
         self.pack(side=Tk.BOTTOM, fill=Tk.X)
 
@@ -736,7 +736,7 @@ class NavigationToolbar2TkAgg(NavigationToolbar2, Tk.Frame):
     def configure_subplots(self):
         toolfig = Figure(figsize=(6,3))
         window = Tk.Tk()
-        canvas = FigureCanvasTkAgg(toolfig, master=window)
+        canvas = FigureCanvasTkAgg(toolfig, main=window)
         toolfig.subplots_adjust(top=0.9)
         tool =  SubplotTool(self.canvas.figure, toolfig)
         canvas.show()
@@ -767,7 +767,7 @@ class NavigationToolbar2TkAgg(NavigationToolbar2, Tk.Frame):
         #defaultextension = self.canvas.get_default_filetype()
         defaultextension = ''
         fname = asksaveasfilename(
-            master=self.window,
+            main=self.window,
             title='Save the figure',
             filetypes = tk_filetypes,
             defaultextension = defaultextension
@@ -792,7 +792,7 @@ class NavigationToolbar2TkAgg(NavigationToolbar2, Tk.Frame):
         naxes = len(self._axes)
         #if not hasattr(self, "omenu"):
         #    self.set_active(range(naxes))
-        #    self.omenu = AxisMenu(master=self, naxes=naxes)
+        #    self.omenu = AxisMenu(main=self, naxes=naxes)
         #else:
         #    self.omenu.adjust(naxes)
         NavigationToolbar2.update(self)

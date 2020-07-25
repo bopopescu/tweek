@@ -72,12 +72,12 @@ class _Base(object):
 
 
 #     def draw_path_collection(self, renderer,
-#                              gc, master_transform, paths, all_transforms,
+#                              gc, main_transform, paths, all_transforms,
 #                              offsets, offsetTrans, facecolors, edgecolors,
 #                              linewidths, linestyles, antialiaseds, urls):
 #         path_ids = []
 #         for path, transform in renderer._iter_collection_raw_paths(
-#             master_transform, paths, all_transforms):
+#             main_transform, paths, all_transforms):
 #             path_ids.append((path, transform))
 
 #         for xo, yo, path_id, gc0, rgbFace in renderer._iter_collection(

@@ -67,7 +67,7 @@ print 'Horizontal    :', font.style_flags & FT_FACE_FLAG_HORIZONTAL       != 0
 print 'Vertical      :', font.style_flags & FT_FACE_FLAG_VERTICAL         != 0
 print 'Kerning       :', font.style_flags & FT_FACE_FLAG_KERNING          != 0
 print 'Fast glyphs   :', font.style_flags & FT_FACE_FLAG_FAST_GLYPHS      != 0
-print 'Mult. masters :', font.style_flags & FT_FACE_FLAG_MULTIPLE_MASTERS != 0
+print 'Mult. mains :', font.style_flags & FT_FACE_FLAG_MULTIPLE_MASTERS != 0
 print 'Glyph names   :', font.style_flags & FT_FACE_FLAG_GLYPH_NAMES      != 0
 
 print dir(font)
